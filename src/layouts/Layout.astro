@@ -1,5 +1,6 @@
 ---
 import {PhoneOutgoingIcon, EnvelopeIcon, ListIcon, XIcon, InstagramLogoIcon} from '@phosphor-icons/react';
+import ImageCarousel from '../components/ImageCarousel'
 
 export interface Props {
   title: string;
@@ -32,8 +33,8 @@ const icons = {
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap" rel="stylesheet">
     <!-- Add Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
@@ -74,34 +75,27 @@ const icons = {
       </div>
     </nav>
 
-		<!-- Hero Section -->
-		<section id="hero" class="hero-section section reveal contrain">
-			<h1>{hero.title}</h1>
-			<div class="flex-section-center">
-				<div class="text-center">
-					<h2>{hero.description}</h2>
-					<ul class="desc-list">
-						{hero.service_items.map(item => (
-							<li>{item}</li>
-						))}
-					</ul>
-					<a
-						class="cta-button"
-						href=/#contact
-					>
-						{hero.ctaText}
-					</a>
+			<!-- Hero Section -->
+			<section id="hero" class="hero-section section reveal constrain">
+				<div class="hero-carousel-wrap">
+					<ImageCarousel
+							client:load
+							images={hero.images}
+							autoPlay={true}
+							interval={5000}
+						/>
+				<div class="hero-overlay">
+						<h1>{hero.title}</h1>
+						<h2>{hero.description}</h2>
+					</div>
 				</div>
-				<img class="desc-image" src={hero.img} />
-			</div>
-		</section>
+			</section>
 
     <!-- Page Content Rendered -->
     <slot />
 
-
     <!-- Contact Section -->
-    <section id="contact" class="contact-section section reveal contrain">
+    <section id="contact" class="contact-section section reveal constrain">
       <img src={contact.logo} />
       <p id="contact-text">{contact.textSection}</p>
 
@@ -288,35 +282,30 @@ const icons = {
   }
 
   h1, h2, h3 {
-    font-family: "Comfortaa", sans-serif;
+    font-family: "Fraunces", serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
   }
 
   body, p, a {
-    font-family: "Poppins", sans-serif;
+    font-family: "Figtree", sans-serif;
     font-weight: 300;
     font-style: normal;
   }
 
-  	body {
-		background-color: #7c6e50;
+  body {
+		background-color: #f3efe6;
 	}
 
-	section.contrain {
+	section.constrain {
 		max-width: 1400px;
 		margin: auto;
-	}
-
-	.hero-section, section#projects {
-		padding: 200px 50px 30px 50px;
 	}
 
 	p, h1, li, h2, h3 {
 		color: #f3efe6;
 	}
-
 
 	.flex-section-center {
 		display: flex;
@@ -325,31 +314,57 @@ const icons = {
     align-items: center;
 	}
 
-	h1 {
-		font-size: clamp(28px, 5vw, 64px);
-    text-align: center;
-    border-bottom: 3px solid #8fa78a;
-    padding-bottom: 15px;
-    margin-bottom: 30px;
+	.flex-section-center.border {
+		border: solid 2px #2f2f2b;
 	}
 
 	h2 {
 		font-size: clamp(24px, 4vw, 36px);
 	}
 
-
-
-	img.header-image {
-		width: 160px;
-    height: 160px;
-    border-radius: 50%;
-		border: solid 3px #f3efe6;
+	.body-section {
+		padding: 70px 50px;
 	}
 
-	img.desc-image {
-		max-width: 350px;
-		border-radius: 15px;
-		width: 100%;
+	.hero-section{
+		padding: 85px 0px 10px 0px;
+		position: relative;
+	}
+
+	.hero-carousel-wrap {
+		position: relative;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		z-index: 3;
+		width: min(520px, calc(100% - 160px));
+		padding: 30px;
+		background: rgba(0, 0, 0, 0.6);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: left;
+	}
+
+	.hero-overlay h1 {
+		margin: 0 0 18px;
+		padding-bottom: 15px;
+		text-align: left;
+		font-size: clamp(28px, 5vw, 64px);
+		border-bottom: 3px solid #ff4845;
+		padding-bottom: 15px;
+		margin-bottom: 30px;
+	}
+
+	.hero-overlay h2 {
+		margin: 0;
+	}
+
+	.hero-overlay .cta-button {
+		margin: 24px 0 0;
 	}
 
 	ul.desc-list {
@@ -369,22 +384,16 @@ const icons = {
 		content: "";
 	}
 
-	.text-center {
-		text-align: center;
-	}
-
-	.body-section {
-		border-top: solid 5px #f3efe6;
-		color: rgb(249, 244, 218);
-		padding: 70px 50px;
-	}
-
-
 	.about-title h2 {
+		color: #2f2f2b;
 		white-space: nowrap;
 		padding-bottom: 20px;
-		border-bottom: 4px solid #8fa78a;
+		border-bottom: 4px solid #ff4845;
 		margin-bottom: 20px;
+	}
+
+	.about-text p {
+		color: #2f2f2b;
 	}
 
 	.about-title {
@@ -392,14 +401,12 @@ const icons = {
 	}
 
 	.about-image {
-		border-radius: 10px;
-		box-shadow: 8px 8px 0 #2f2f2b;
-		max-width: 410px;
+		max-width: 210px;
     width: 100%;
-    margin: 0 auto 50px;
+    margin: 0 auto;
 	}
 
-  .parallax-section {
+  .services-section {
 		border-top: solid 5px #f3efe6;
 		position: relative;
 		padding: 50px;
@@ -411,7 +418,7 @@ const icons = {
 		display: flex;
 	}
 
-	.parallax-section::before {
+	.services-section::before {
 		content: '';
 		position: absolute;
 		top: 0;
@@ -423,7 +430,7 @@ const icons = {
 		pointer-events: none;
 	}
 
-  .parallax-content {
+  .services-content {
 		z-index: 2;
 		margin: auto;
 		color: #2f2f2b;
@@ -436,19 +443,19 @@ const icons = {
 		width: fit-content;
 	}
 
-	.parallax-content div {
+	.services-content div {
 		max-width: 800px;
 	}
 
-	.parallax-content p, .parallax-content li, .parallax-content h2 {
+	.services-content p, .services-content li, .services-content h2 {
 		color: #2f2f2b;
 	}
 
-	.parallax-content ul.desc-list.services li {
+	.services-content ul.desc-list.services li {
 		font-size: 24px;
 	}
 
-	.parallax-content h2 {
+	.services-content h2 {
 		margin-bottom: 20px;
 	}
 
@@ -481,7 +488,6 @@ const icons = {
 
 	.carousel {
 		position: relative;
-		padding: 0 80px;
 	}
 
 	.carousel-image img {
@@ -526,10 +532,10 @@ const icons = {
   .cta-button {
 		display: block;
 		margin: 40px auto;
-		background: #8fa78a;
+		background: #8645ff;
 		border: solid 2px transparent;
 		padding: 10px 15px;
-		color: #231f20;
+		color: #f3efe6;
 		text-decoration: none;
 		display: block;
 		margin: 20px auto;
@@ -542,7 +548,6 @@ const icons = {
 	}
 
 	.cta-button:hover {
-		background: #455143;
 		border: solid 2px #f3efe6;
 		color: #f3efe6;
 	}
@@ -636,7 +641,7 @@ const icons = {
 		position: fixed;
 		top: 0;
 		width: 100%;
-		background: rgba(27, 38, 44, 0.8);
+		background: #f3efe6;
 		backdrop-filter: blur(10px);
 		z-index: 1000;
 		transition: all 0.3s ease;
@@ -649,6 +654,7 @@ const icons = {
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 2rem;
+		border-bottom: 2px solid #231f20;
 	}
 
   .nav-links {
@@ -660,7 +666,7 @@ const icons = {
 	}
 
 	.nav-links a {
-		color: #f3efe6;
+		color: #231f20;
 		text-decoration: none;
 		font-family: "Poppins", sans-serif;
     font-weight: 400;
@@ -670,7 +676,7 @@ const icons = {
 
 	.nav-links a:hover,
 	.nav-links a.active {
-		color: #8fa78a;
+		color: #ff4845;
 	}
 
   .nav-links a::after {
@@ -680,7 +686,7 @@ const icons = {
 		left: 0;
 		width: 0;
 		height: 3px;
-		background: #c26a45;
+		background: #8645ff;
 		transition: width 0.3s ease;
 	}
 
@@ -757,10 +763,16 @@ const icons = {
 			padding-top: 120px;
 		}
 
-    section#projects {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+		.hero-overlay {
+			left: 10px;
+			width: calc(100% - 20px);
+			padding: 20px;
+		}
+
+		section#projects {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
 
 		.image-caption {
 			margin-top: 5px;
@@ -799,7 +811,7 @@ const icons = {
 			max-width: unset;
 		}
 
-		.parallax-section {
+		.services-section {
 			background-attachment: scroll; /* fallback */
 			background-position: center;
 			background-size: cover;
@@ -807,15 +819,15 @@ const icons = {
 			padding: 50px 20px;
 		}
 
-		.parallax-section::before {
+		.services-section::before {
 			background: linear-gradient(rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.7));
 		}
 
-		.parallax-content {
+		.services-content {
 			font-size: 20px;
 		}
 
-		.parallax-content ul.desc-list.services li {
+		.services-content ul.desc-list.services li {
 			font-size: 20px;
 		}
 

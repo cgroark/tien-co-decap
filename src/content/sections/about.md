@@ -1,5 +1,18 @@
 ---
-title: Tien and Co
-image: /images/vietnam-logo.png
+title: About Me
+image: /images/truong-headshot.jpg
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Nisi ut aliquip ex ea commodo consequat duis aute irure dolor.
+*Interested in finally visiting Vietnam after hearing about the amazing experiences others have had there?*
+
+<br>
+
+*Want to consider nascent business or market opportunities in the region?*
+
+<br>
+
+*Curious to explore more about the fascinating Vietnamese culture?*
+
+<br>
+
+Now is a phenomenal time to engage with Vietnam.
+

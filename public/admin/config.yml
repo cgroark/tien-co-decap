@@ -18,10 +18,12 @@ collections:
         file: "src/content/sections/hero.md"
         fields:
           - { label: "Title", name: "title", widget: "string" }
-          - { label: "Image", name: "img", widget: "image"}
           - { label: "Description", name: "description", widget: "string", required: false }
-          - { label: "Service Items", name: "service_items", widget: "string", required: false }
-          - { label: "CTA Text", name: "ctaText", widget: "string" }
+          - label: "Images"
+            name: "images"
+            widget: "list"
+            fields:
+              - {label: "Full Image", name: "full_image", widget: "image" }
 
       - label: "About Section"
         name: "about"
@@ -32,15 +34,19 @@ collections:
           - { label: "Image", name: "image", widget: "image", required: false }
 
       - label: "Services Section"
-        name: "parallax"
-        file: "src/content/sections/parallax.md"
+        name: "services"
+        file: "src/content/sections/services.md"
         fields:
           - { label: "Header", name: "header", widget: "string" }
+          - { label: "Image", name: "image", widget: "image", required: false }
           - { label: "Overview", name: "project_overview", widget: "string" }
-          - { label: "Service Area", name: "service_area", widget: "string" }
+          - label: "Service Area"
+            name: "service_area"
+            widget: "list"
+            field: { label: "Item", name: "item", widget: "string" }
           - { label: "CTA Text", name: "ctaText", widget: "string" }
-          - { label: "Map Image", name: "map_image", widget: "image", required: false}
-          - { label: "Background Image", name: "image", widget: "image", required: false }
+          - { label: "Contact Line", name: "contact_line", widget: "string" }
+          - { label: "Background Image", name: "background_image", widget: "image", required: false }
 
       - label: "Projects Section"
         name: "projects"
@@ -105,5 +111,3 @@ collections:
                 options:
                   - { label: "None", value: "" }
                   - { label: "Facebook", value: "facebook" }
-
-

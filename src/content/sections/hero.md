@@ -1,11 +1,7 @@
 ---
 title: Tien and Co
-img: /images/vietnam-logo.png
-description: "We do lots of things"
-service_items:
-  - Travel
-  - Tours
-  - Lodging
-  - Food
-ctaText: Get In Touch
+description: Your guide to Vietnam is waiting
+images:
+  - full_image: /images/doorway.jpg
+  - full_image: /images/pink.jpg
 ---

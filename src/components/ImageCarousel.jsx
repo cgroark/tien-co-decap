@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function ImageCarousel({ images }) {
+export default function ImageCarousel({ images, autoPlay = false, interval = 5000 }) {
   const [index, setIndex] = useState(0);
 
   const prev = () =>
@@ -8,6 +8,16 @@ export default function ImageCarousel({ images }) {
 
   const next = () =>
     setIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+
+  useEffect(() => {
+    if (!autoPlay || images.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [autoPlay, images.length, interval]);
 
   const image = images[index];
 
@@ -23,7 +33,7 @@ export default function ImageCarousel({ images }) {
       )}
     </div>
 
-    {images.length > 1 && (
+    {!autoPlay && images.length > 1 && (
       <>
         <button
           className="carousel-control prev"

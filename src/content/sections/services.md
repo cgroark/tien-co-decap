@@ -12,5 +12,5 @@ service_area:
 contact_line:
   Contact us to discuss what additional services we can provide or curate for you.
 ctaText: Contact Me
-image: /images/beach-ocean.jpg
+background_image: /images/beach-ocean.jpg
 ---
