@@ -95,29 +95,35 @@ const icons = {
     <slot />
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section section reveal constrain">
-      <img src={contact.logo} />
-      <p id="contact-text">{contact.textSection}</p>
+    <section id="contact" class="contact-section body-section section reveal constrain">
+      <div class="body-section-title center">
+				<h2>{contact.title}</h2>
+			</div>
+			<div class="body-section-text border eighty">
+				<p id="contact-text">{contact.textSection}</p>
+				<div class="contact-content">
+					<div>
+						<a href={`tel:${contact.phone}`}>
+							<PhoneOutgoingIcon size={32} />
+							{contact.phoneString}
+						</a>
+					</div>
+					<div>
+						<a href={`mailto:${contact.email}`}>
+							<EnvelopeIcon size={32} />
+							{contact.emailString}
+						</a>
+					</div>
+					<div>
+						<a href={contact.instagramLink}>
+							<InstagramLogoIcon size={32} />
+						</a>
+					</div>
+				</div>
+			</div>
 
-      <div class="contact-content">
-        <div>
-          <a href={`tel:${contact.phone}`}>
-            <PhoneOutgoingIcon size={32} />
-            {contact.phoneString}
-          </a>
-        </div>
-				<div>
-          <a href={`mailto:${contact.email}`}>
-            <EnvelopeIcon size={32} />
-            {contact.emailString}
-          </a>
-        </div>
-				<div>
-          <a href={contact.instagramLink}>
-            <InstagramLogoIcon size={32} />
-          </a>
-        </div>
-      </div>
+			<img src={contact.logo} />
+
     </section>
 
   	<!-- Footer Section -->
@@ -163,6 +169,19 @@ const icons = {
         const navLinks = Array.from(nav.querySelectorAll('a[href]'));
         const path = window.location.pathname;
 
+        const getHashFromHref = (href) => {
+          if (!href) return '';
+          if (href.startsWith('#')) return href;
+          if (href.startsWith('/#')) return href.slice(1);
+
+          try {
+            const url = new URL(href, window.location.origin);
+            return url.pathname === '/' ? url.hash : '';
+          } catch {
+            return '';
+          }
+        };
+
         const clearActive = () =>
           navLinks.forEach(a => a.classList.remove('active'));
 
@@ -184,35 +203,36 @@ const icons = {
         /* -----------------------------
           CASE 2: Home page sections
         ------------------------------ */
-        const sections = document.querySelectorAll('section[id]');
+        const sections = Array.from(document.querySelectorAll('section[id]'));
         if (!sections.length) return;
 
-        const sectionIds = new Set([...sections].map(s => s.id));
-
-        const getSectionLinks = () =>
+        const sectionIds = new Set(sections.map(s => s.id));
+        const sectionLinks =
           navLinks.filter(a => {
-            const href = a.getAttribute('href');
-            if (!href.startsWith('/#')) return false;
-            return sectionIds.has(href.replace('/#', ''));
+            const hash = getHashFromHref(a.getAttribute('href'));
+            return hash && sectionIds.has(hash.slice(1));
           });
 
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
+        const updateActiveSection = () => {
+          const navOffset = nav.offsetHeight || 0;
+          const activationLine = navOffset + 40;
+          const current = sections.reduce((active, section) => {
+            const top = section.getBoundingClientRect().top;
+            return top <= activationLine ? section : active;
+          }, sections[0]);
 
-            const id = entry.target.id;
-            clearActive();
+          if (!current) return;
 
-            getSectionLinks()
-              .filter(a => a.getAttribute('href') === `/#${id}`)
-              .forEach(a => a.classList.add('active'));
-          });
-        }, {
-          rootMargin: `-${nav.offsetHeight || 120}px 0px -60% 0px`,
-          threshold: 0.1
-        });
+          clearActive();
+          sectionLinks
+            .filter(a => getHashFromHref(a.getAttribute('href')) === `#${current.id}`)
+            .forEach(a => a.classList.add('active'));
+        };
 
-        sections.forEach(section => observer.observe(section));
+        updateActiveSection();
+        window.addEventListener('scroll', updateActiveSection, { passive: true });
+        window.addEventListener('resize', updateActiveSection);
+        window.addEventListener('hashchange', updateActiveSection);
       })();
     </script>
 
@@ -294,6 +314,14 @@ const icons = {
     font-style: normal;
   }
 
+	p {
+		margin-bottom: 16px;
+	}
+
+	div > p:last-child {
+		margin-bottom: 0;
+	}
+
   body {
 		background-color: #f3efe6;
 	}
@@ -307,15 +335,20 @@ const icons = {
 		color: #f3efe6;
 	}
 
+
 	.flex-section-center {
 		display: flex;
 		justify-content: center;
 		gap: 25px;
-    align-items: center;
+		align-items: center;
 	}
 
 	.flex-section-center.border {
-		border: solid 2px #2f2f2b;
+		align-items: stretch;
+	}
+
+	.flex-section-center.border .body-section-image {
+		align-self: center;
 	}
 
 	h2 {
@@ -367,24 +400,87 @@ const icons = {
 		margin: 24px 0 0;
 	}
 
+	.desc-list-section {
+		margin: 20px auto;
+		width: fit-content;
+	}
+
 	ul.desc-list {
-		padding: 10px;
-		list-style: disc;
+		list-style: none;
 	}
 
 	ul.desc-list li {
-		display: inline;
+		color: #2f2f2b;
+		font-size: 22px;
 	}
 
-  ul.desc-list li::after {
-		content: " • ";
+	ul.desc-list li span {
+		border-bottom: 2px solid #ff4845;
 	}
 
-	ul.desc-list li:last-child::after {
-		content: "";
+	ul.desc-list svg {
+		transition: all 0.3s ease-in-out;
 	}
 
-	.about-title h2 {
+	ul.desc-list svg:hover {
+		color: #ff4845;
+	}
+
+	ul.desc-list li.service-area-item {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.section-divider {
+		display: flex;
+		align-items: center;
+		gap: 18px;
+		padding: 0 50px;
+	}
+
+	.section-divider hr {
+		flex: 1;
+		height: 1px;
+		border: 0;
+		background: #2f2f2b;
+	}
+
+	.section-divider svg {
+		flex: 0 0 auto;
+		color: #ff4845;
+	}
+
+	.body-section-text {
+		padding: 25px;
+	}
+
+	.body-section-text.border {
+		border: solid 2px #2f2f2b;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		text-align: left;
+		background-color:#ffffff6b;
+	}
+
+	.body-section-text.border.eighty {
+		margin: auto;
+		width: 80%;
+		margin-bottom: 50px;
+	}
+
+	.body-section-text p {
+		color: #2f2f2b;
+	}
+
+	.body-section-title {
+		width: 50%;
+	}
+
+	.body-section-title h2 {
 		color: #2f2f2b;
 		white-space: nowrap;
 		padding-bottom: 20px;
@@ -392,15 +488,16 @@ const icons = {
 		margin-bottom: 20px;
 	}
 
-	.about-text p {
-		color: #2f2f2b;
+	.body-section-title.center {
+		margin: auto;
+		width: 80%;
 	}
 
-	.about-title {
-		width: 50%;
+	.body-section-title.center h2 {
+		text-align: center
 	}
 
-	.about-image {
+	.body-section-image {
 		max-width: 210px;
     width: 100%;
     margin: 0 auto;
@@ -552,26 +649,17 @@ const icons = {
 		color: #f3efe6;
 	}
 
-  #contact-text {
-    text-align: center;
-  }
+	#contact-text {
+		margin: auto;
+		color: #2f2f2b;
+	}
 
-  .contact-section {
-		border-top: solid 5px #f3efe6;
-		min-height: 60vh;
-		background-color: #7c6e50;
+	.contact-section {
+		min-height: 100vh;
+		background-color: #f3efe6;
 		padding-top: 40px;
-	}
-
-	.contact-section h2 {
-		text-align: center;
-		color: #f3efe6;
-		font-size: 42px;
-		padding-bottom: 20px;
-		border-bottom: 4px solid #c26a45;
-		width: fit-content;
-		margin: 20px auto;
-	}
+		color: #2f2f2b;
+}
 
 	.contact-section img {
 		max-width: 300px;
@@ -587,11 +675,11 @@ const icons = {
 		gap: 20px;
 	}
 
-	.contact-content div a {
+		.contact-content div a {
 		display: flex;
 		align-items: center;
 		gap: 5px;
-		color: #f3efe6;
+			color: #2f2f2b;
 		text-decoration: none;
 		margin-bottom: 10px;
 		padding: 5px 10px;
@@ -749,7 +837,7 @@ const icons = {
 			padding: 10px 20px;
 		}
 
-		.about-title {
+		.body-section-title {
 			padding: 20px 10px;
 			width: 100%;
 		}
@@ -803,11 +891,11 @@ const icons = {
 			font-size: 16px;
 		}
 
-		.about-text {
+		.body-section-text {
 			font-size: 16px;
 		}
 
-		.about-image {
+		.body-section-image {
 			max-width: unset;
 		}
 

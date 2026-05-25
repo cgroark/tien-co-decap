@@ -37,16 +37,24 @@ collections:
         name: "services"
         file: "src/content/sections/services.md"
         fields:
-          - { label: "Header", name: "header", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
           - { label: "Image", name: "image", widget: "image", required: false }
-          - { label: "Overview", name: "project_overview", widget: "string" }
+          - { label: "Overview", name: "overview", widget: "string" }
           - label: "Service Area"
             name: "service_area"
             widget: "list"
-            field: { label: "Item", name: "item", widget: "string" }
-          - { label: "CTA Text", name: "ctaText", widget: "string" }
+            fields:
+              - { label: "Text", name: "text", widget: "string" }
+              - label: "Icon"
+                name: "icon"
+                widget: "select"
+                options:
+                  - AirplaneTiltIcon
+                  - BookOpenTextIcon
+                  - HandshakeIcon
+                  - HeadCircuitIcon
+                  - SparkleIcon
           - { label: "Contact Line", name: "contact_line", widget: "string" }
-          - { label: "Background Image", name: "background_image", widget: "image", required: false }
 
       - label: "Projects Section"
         name: "projects"
@@ -71,6 +79,7 @@ collections:
         name: "contact"
         file: "src/content/sections/contact.md"
         fields:
+          - { label: "Title", name: "title", widget: "string" }
           - { label: "Text Section", name: "textSection", widget: "string" }
           - { label: "Phone Number Text", name: "phoneString", widget: "string" }
           - { label: "Phone Number", name: "phone", widget: "string" }

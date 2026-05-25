@@ -1,6 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {PhoneOutgoingIcon, EnvelopeIcon, ListIcon, XIcon} from '@phosphor-icons/react';
+import {
+		AirplaneTiltIcon,
+		BookOpenTextIcon,
+		BowlFoodIcon,
+		BowlSteamIcon,
+		HandshakeIcon,
+		HeadCircuitIcon,
+		PhoneOutgoingIcon,
+		SparkleIcon,
+} from '@phosphor-icons/react';
 
 // Import all sections
 const heroContent = await import('../content/sections/hero.md');
@@ -18,6 +27,13 @@ const navContent = await import('../content/navigation/main.md');
 const footer = footerContent.frontmatter;
 const contact = contactContent.frontmatter;
 const navigation = navContent.frontmatter;
+const serviceIcons = {
+	AirplaneTiltIcon,
+	BookOpenTextIcon,
+	HandshakeIcon,
+	HeadCircuitIcon,
+	SparkleIcon,
+};
 ---
 
 <Layout title={hero.title}>
@@ -25,43 +41,56 @@ const navigation = navContent.frontmatter;
 	<section id="about" class="reveal constrain">
 		<!-- About Section -->
 		<section class="body-section about">
-			<div class="about-title">
+			<div class="body-section-title">
 				<h2>{about.title}</h2>
 			</div>
 			<div class="flex-section-center border">
-				<img class="about-image" src={about.image} />
-				<div class="about-text">
+				<img class="body-section-image" src={about.image} />
+				<div class="body-section-text border">
 						<aboutContent.Content />
 				</div>
 			</div>
 		</section>
-	</section>
+		</section>
 
-	<!-- Services Section -->
-	<section
-		id="services"
-		class="services-section"
-		style={services.background_image ? `background-image: url(${services.background_image})` : ''}
-	>
-		<div class="services-content reveal">
-			<div>
-				<h2>{services.header}</h2>
-				<p>{services.project_overview}</p>
-				<ul class="desc-list">
-					{services.service_area.map(item => (
-						<li>{item}</li>
-					))}
-				</ul>
-				{services.image && <img class="map-image" src={services.image} />}
-				{services.contact_line && <p>{services.contact_line}</p>}
-				<a
-					class="cta-button"
-					href="/#contact"
-				>
-					{services.ctaText}
-				</a>
-			</div>
+		<div class="section-divider constrain" aria-hidden="true">
+			<hr />
+			<BowlFoodIcon size={36} weight="regular" />
+			<hr />
 		</div>
-	</section>
 
-</Layout>
+		<section id="services" class="reveal constrain">
+		<!-- Services Section -->
+		<section class="body-section services">
+			<div class="body-section-title">
+				<h2>{services.title}</h2>
+			</div>
+			<div class="flex-section-center">
+				<div class="body-section-text border">
+					<p>{services.overview}</p>
+					<p>{services.contact_line}</p>
+				</div>
+			</div>
+				<div class="desc-list-section">
+					<ul class="desc-list">
+						{services.service_area.map(item => {
+							const Icon = serviceIcons[item.icon];
+							return (
+								<li class="service-area-item">
+									{Icon && <Icon size={72} />}
+									<span>{item.text}</span>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			</section>
+		</section>
+
+		<div class="section-divider constrain" aria-hidden="true">
+			<hr />
+			<BowlSteamIcon size={36} weight="regular" />
+			<hr />
+		</div>
+
+	</Layout>

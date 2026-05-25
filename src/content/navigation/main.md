@@ -1,5 +1,5 @@
 ---
-logo: "/images/tien-logo.jpeg"
+logo: "/images/truong-tien-logo.png"
 nav_items:
   - label: "About"
     href: "#about"

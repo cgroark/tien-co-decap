@@ -1,6 +1,6 @@
 ---
 header: Services
-image: /images/tien-logo.jpeg
+image: /images/truong-tien-logo.png
 project_overview:
   After 20+ years travelling Vietnam and Southeast Asia (and an entire life being Vietnamese American), Joseph and his network through Tien and Co is ready to help you experience and discover Vietnam.
 service_area:
