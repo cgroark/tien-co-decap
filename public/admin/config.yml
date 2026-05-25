@@ -3,8 +3,8 @@ backend:
   branch: master
 
 # For username/password auth (no GitHub required)
-site_url:
-display_url:
+site_url: https://your-site-name.netlify.app
+display_url: https://your-site-name.netlify.app
 
 media_folder: "public/images"
 public_folder: "/images"
