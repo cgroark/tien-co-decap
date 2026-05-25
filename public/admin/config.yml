@@ -3,8 +3,8 @@ backend:
   branch: master
 
 # For username/password auth (no GitHub required)
-site_url: https://your-site-name.netlify.app
-display_url: https://your-site-name.netlify.app
+site_url: https://tien-co.netlify.app
+display_url: https://tien-co.netlify.app
 
 media_folder: "public/images"
 public_folder: "/images"

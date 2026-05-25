@@ -6,6 +6,6 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: 'https://your-site-name.netlify.app',
+  site: 'https://tien-co.netlify.app',
   integrations: [react()],
 });
