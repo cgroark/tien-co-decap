@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {PhoneOutgoingIcon, EnvelopeIcon, ListIcon, XIcon} from '@phosphor-icons/react';
+
+// Import all sections
+const heroContent = await import('../content/sections/hero.md');
+const aboutContent = await import('../content/sections/about.md');
+const parallaxContent = await import ('../content/sections/parallax.md');
+
+const hero = heroContent.frontmatter;
+const about = aboutContent.frontmatter;
+const parallax = parallaxContent.frontmatter;
+
+const footerContent = await import('../content/sections/footer.md');
+const contactContent = await import('../content/sections/contact.md');
+const navContent = await import('../content/navigation/main.md');
+
+const footer = footerContent.frontmatter;
+const contact = contactContent.frontmatter;
+const navigation = navContent.frontmatter;
+---
+
+<Layout title={hero.title}>
+
+	<section id="about" class="reveal contrain">
+		<!-- About Section -->
+		<section class="body-section about">
+			<div class="about-title">
+				<h2>{about.title}</h2>
+			</div>
+			<div class="flex-section-center">
+				<div class="about-text">
+						<aboutContent.Content />
+				</div>
+				<img class="about-image" src={about.image} />
+			</div>
+		</section>
+	</section>
+
+	<!-- Parallax and Services Section -->
+	<section  id="services" class="parallax-section"
+		style={parallax.image ? `background-image: url(${parallax.image})`  : ''}
+	>
+		<div class="parallax-content reveal">
+			<div>
+				<h2>{parallax.header}</h2>
+				<ul class="desc-list services">
+					{hero.service_items.map(item => (
+						<li><strong>{item}</strong></li>
+					))}
+				</ul>
+				<p>{parallax.project_overview}</p>
+				<ul class="desc-list">
+					{parallax.service_area.map(item => (
+						<li>{item}</li>
+					))}
+				</ul>
+				<img class="map-image" src={parallax.map_image} />
+				<a
+					class="cta-button"
+					href="/#contact"
+				>
+					{parallax.ctaText}
+				</a>
+			</div>
+		</div>
+	</section>
+
+</Layout>

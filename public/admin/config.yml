@@ -1,0 +1,109 @@
+backend:
+  name: git-gateway
+  branch: master
+
+# For username/password auth (no GitHub required)
+site_url:
+display_url:
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "sections"
+    label: "Page Sections"
+    files:
+      - label: "Hero Section"
+        name: "hero"
+        file: "src/content/sections/hero.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Image", name: "img", widget: "image"}
+          - { label: "Description", name: "description", widget: "string", required: false }
+          - { label: "Service Items", name: "service_items", widget: "string", required: false }
+          - { label: "CTA Text", name: "ctaText", widget: "string" }
+
+      - label: "About Section"
+        name: "about"
+        file: "src/content/sections/about.md"
+        fields:
+          - { label: "Section Title", name: "title", widget: "string" }
+          - { label: "Content", name: "body", widget: "markdown" }
+          - { label: "Image", name: "image", widget: "image", required: false }
+
+      - label: "Services Section"
+        name: "parallax"
+        file: "src/content/sections/parallax.md"
+        fields:
+          - { label: "Header", name: "header", widget: "string" }
+          - { label: "Overview", name: "project_overview", widget: "string" }
+          - { label: "Service Area", name: "service_area", widget: "string" }
+          - { label: "CTA Text", name: "ctaText", widget: "string" }
+          - { label: "Map Image", name: "map_image", widget: "image", required: false}
+          - { label: "Background Image", name: "image", widget: "image", required: false }
+
+      - label: "Projects Section"
+        name: "projects"
+        file: "src/content/sections/projects.md"
+        fields:
+        - { label: "Title", name: "title", widget: "string" }
+        - label: "Project Items"
+          name: "project_items"
+          widget: "list"
+          fields:
+            - {label: "Title", name: "title", widget: "string"}
+            - {label: "Content", name: "content", widget: "string", required: false}
+            - label: "Project Images"
+              name: "project_images"
+              widget: "list"
+              fields:
+                - {label: "Full Image", name: "full_image", widget: "image" }
+                - {label: "Thumbnail Image", name: "thumbnail_image", widget: "image", required: false }
+                - {label: "Caption", name: "caption", widget: "string", required: false}
+
+      - label: "Contact Section"
+        name: "contact"
+        file: "src/content/sections/contact.md"
+        fields:
+          - { label: "Text Section", name: "textSection", widget: "string" }
+          - { label: "Phone Number Text", name: "phoneString", widget: "string" }
+          - { label: "Phone Number", name: "phone", widget: "string" }
+          - { label: "Email Text", name: "emailString", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "FacebookLink", name: "facebookLink", widget: "string" }
+          - { label: "Image", name: "logo", widget: "image", required: false }
+
+      - label: "Footer Section"
+        name: "footer"
+        file: "src/content/sections/footer.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Copyright", name: "copyright", widget: "string" }
+          - { label: "Owner", name: "owner", widget: "string" }
+          - { label: "Owner link", name: "ownerLink", widget: "string"}
+
+  - name: "navigation"
+    label: "Navigation"
+    files:
+      - label: "Main Navigation"
+        name: "main-nav"
+        file: "src/content/navigation/main.md"
+        fields:
+          - { label: "Logo", name: "logo", widget: "image" }
+
+          - label: "Navigation Items"
+            name: "nav_items"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string", required: false }
+              - { label: "Link", name: "href", widget: "string" }
+
+              - label: "Icon"
+                name: "icon"
+                widget: "select"
+                required: false
+                options:
+                  - { label: "None", value: "" }
+                  - { label: "Facebook", value: "facebook" }
+
+

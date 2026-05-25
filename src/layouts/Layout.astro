@@ -1,0 +1,904 @@
+---
+import {PhoneOutgoingIcon, EnvelopeIcon, ListIcon, XIcon, InstagramLogoIcon} from '@phosphor-icons/react';
+
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const heroContent = await import('../content/sections/hero.md');
+const footerContent = await import('../content/sections/footer.md');
+const contactContent = await import('../content/sections/contact.md');
+const navContent = await import('../content/navigation/main.md');
+
+const hero = heroContent.frontmatter;
+const footer = footerContent.frontmatter;
+const contact = contactContent.frontmatter;
+const navigation = navContent.frontmatter;
+const icons = {
+  instagram: InstagramLogoIcon,
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Tien and Co">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Add Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+
+   	<!-- Navigation -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="/#hero" class="logo-nav">
+          <img src={navigation.logo} />
+        </a>
+
+        <!-- Hamburger button -->
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span class="icon icon-menu"><ListIcon  size={32} /></span>
+          <span class="icon icon-close"><XIcon size={32} /></span>
+        </button>
+
+        <ul class="nav-links">
+					{navigation.nav_items.map((item) => {
+						const Icon = icons[item.icon];
+
+						return (
+							<li>
+								<a
+									href={item.href}
+									aria-label={item.label || item.icon}
+									target={Icon ? "_blank" : undefined}
+          				rel={Icon ? "noopener noreferrer" : undefined}
+								>
+									{Icon && <Icon size={24} style={{ marginRight: item.label ? "6px" : 0 }} />}
+									{item.label && <span>{item.label}</span>}
+								</a>
+							</li>
+						);
+					})}
+				</ul>
+      </div>
+    </nav>
+
+		<!-- Hero Section -->
+		<section id="hero" class="hero-section section reveal contrain">
+			<h1>{hero.title}</h1>
+			<div class="flex-section-center">
+				<div class="text-center">
+					<h2>{hero.description}</h2>
+					<ul class="desc-list">
+						{hero.service_items.map(item => (
+							<li>{item}</li>
+						))}
+					</ul>
+					<a
+						class="cta-button"
+						href=/#contact
+					>
+						{hero.ctaText}
+					</a>
+				</div>
+				<img class="desc-image" src={hero.img} />
+			</div>
+		</section>
+
+    <!-- Page Content Rendered -->
+    <slot />
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section reveal contrain">
+      <img src={contact.logo} />
+      <p id="contact-text">{contact.textSection}</p>
+
+      <div class="contact-content">
+        <div>
+          <a href={`tel:${contact.phone}`}>
+            <PhoneOutgoingIcon size={32} />
+            {contact.phoneString}
+          </a>
+        </div>
+				<div>
+          <a href={`mailto:${contact.email}`}>
+            <EnvelopeIcon size={32} />
+            {contact.emailString}
+          </a>
+        </div>
+				<div>
+          <a href={contact.instagramLink}>
+            <InstagramLogoIcon size={32} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+  	<!-- Footer Section -->
+    <section id="footer" class="footer-section">
+      <p>{footer.copyright}</p>
+      <p>{footer.owner} <a href={footer.ownerLink} target="_blank">{footer.ownerSite}</a></p>
+    </section>
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+
+        window.netlifyIdentity.on("confirm", () => {
+          document.location.href = "/admin/";
+        });
+
+        window.netlifyIdentity.on("recovery", () => {
+          document.location.href = "/admin/";
+        });
+      }
+
+      // Fallback in case the identity widget isn't ready immediately
+      window.addEventListener("load", () => {
+        if (window.location.search.includes("confirmation_token") ||
+            window.location.search.includes("recovery_token")) {
+          document.location.href = "/admin/";
+        }
+      });
+    </script>
+
+    <script>
+      (() => {
+
+        const nav = document.querySelector('.main-nav');
+        if (!nav) return;
+
+        const navLinks = Array.from(nav.querySelectorAll('a[href]'));
+        const path = window.location.pathname;
+
+        const clearActive = () =>
+          navLinks.forEach(a => a.classList.remove('active'));
+
+        const setActiveByHref = (href) => {
+          clearActive();
+          navLinks
+            .filter(a => a.getAttribute('href') === href)
+            .forEach(a => a.classList.add('active'));
+        };
+
+        /* -----------------------------
+          CASE 1: /projects page
+        ------------------------------ */
+        if (path.startsWith('/projects')) {
+          setActiveByHref('/projects');
+          return;
+        }
+
+        /* -----------------------------
+          CASE 2: Home page sections
+        ------------------------------ */
+        const sections = document.querySelectorAll('section[id]');
+        if (!sections.length) return;
+
+        const sectionIds = new Set([...sections].map(s => s.id));
+
+        const getSectionLinks = () =>
+          navLinks.filter(a => {
+            const href = a.getAttribute('href');
+            if (!href.startsWith('/#')) return false;
+            return sectionIds.has(href.replace('/#', ''));
+          });
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+
+            const id = entry.target.id;
+            clearActive();
+
+            getSectionLinks()
+              .filter(a => a.getAttribute('href') === `/#${id}`)
+              .forEach(a => a.classList.add('active'));
+          });
+        }, {
+          rootMargin: `-${nav.offsetHeight || 120}px 0px -60% 0px`,
+          threshold: 0.1
+        });
+
+        sections.forEach(section => observer.observe(section));
+      })();
+    </script>
+
+    <script>
+      (() => {
+        const toggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (!toggle || !navLinks) return;
+
+        const openMenu = () => {
+          navLinks.classList.add('open');
+          toggle.classList.add('open');
+        };
+
+        const closeMenu = () => {
+          navLinks.classList.remove('open');
+          toggle.classList.remove('open');
+        };
+
+        toggle.addEventListener('click', () => {
+          navLinks.classList.contains('open') ? closeMenu() : openMenu();
+        });
+
+        // Close menu + reset icon when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link =>
+          link.addEventListener('click', closeMenu)
+        );
+      })();
+    </script>
+
+    <script>
+      (() => {
+        const reveals = document.querySelectorAll('.reveal');
+
+        if (!reveals.length) return;
+
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target); // animate once
+            }
+          });
+        }, {
+          threshold: 0.15
+        });
+
+        reveals.forEach(el => observer.observe(el));
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  h1, h2, h3 {
+    font-family: "Comfortaa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  body, p, a {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  	body {
+		background-color: #7c6e50;
+	}
+
+	section.contrain {
+		max-width: 1400px;
+		margin: auto;
+	}
+
+	.hero-section, section#projects {
+		padding: 200px 50px 30px 50px;
+	}
+
+	p, h1, li, h2, h3 {
+		color: #f3efe6;
+	}
+
+
+	.flex-section-center {
+		display: flex;
+		justify-content: center;
+		gap: 25px;
+    align-items: center;
+	}
+
+	h1 {
+		font-size: clamp(28px, 5vw, 64px);
+    text-align: center;
+    border-bottom: 3px solid #8fa78a;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+	}
+
+	h2 {
+		font-size: clamp(24px, 4vw, 36px);
+	}
+
+
+
+	img.header-image {
+		width: 160px;
+    height: 160px;
+    border-radius: 50%;
+		border: solid 3px #f3efe6;
+	}
+
+	img.desc-image {
+		max-width: 350px;
+		border-radius: 15px;
+		width: 100%;
+	}
+
+	ul.desc-list {
+		padding: 10px;
+		list-style: disc;
+	}
+
+	ul.desc-list li {
+		display: inline;
+	}
+
+  ul.desc-list li::after {
+		content: " • ";
+	}
+
+	ul.desc-list li:last-child::after {
+		content: "";
+	}
+
+	.text-center {
+		text-align: center;
+	}
+
+	.body-section {
+		border-top: solid 5px #f3efe6;
+		color: rgb(249, 244, 218);
+		padding: 70px 50px;
+	}
+
+
+	.about-title h2 {
+		white-space: nowrap;
+		padding-bottom: 20px;
+		border-bottom: 4px solid #8fa78a;
+		margin-bottom: 20px;
+	}
+
+	.about-title {
+		width: 50%;
+	}
+
+	.about-image {
+		border-radius: 10px;
+		box-shadow: 8px 8px 0 #2f2f2b;
+		max-width: 410px;
+    width: 100%;
+    margin: 0 auto 50px;
+	}
+
+  .parallax-section {
+		border-top: solid 5px #f3efe6;
+		position: relative;
+		padding: 50px;
+		background-size: cover;
+		background-position: 40% center;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		min-height: 60vh;
+		display: flex;
+	}
+
+	.parallax-section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 20%, transparent 100%);
+		z-index: 1;
+		pointer-events: none;
+	}
+
+  .parallax-content {
+		z-index: 2;
+		margin: auto;
+		color: #2f2f2b;
+    background: #f3efe6;
+    padding: 25px 15px;
+    border-radius: 10px;
+		border: solid 4px #8fa78a;
+		box-shadow: 8px 8px 0 #2f2f2b;
+		text-align: center;
+		width: fit-content;
+	}
+
+	.parallax-content div {
+		max-width: 800px;
+	}
+
+	.parallax-content p, .parallax-content li, .parallax-content h2 {
+		color: #2f2f2b;
+	}
+
+	.parallax-content ul.desc-list.services li {
+		font-size: 24px;
+	}
+
+	.parallax-content h2 {
+		margin-bottom: 20px;
+	}
+
+  .project-item {
+		margin-bottom: 20px;
+	}
+
+	.project-item .text {
+		text-align: center;
+		margin-bottom: 10px;
+	}
+
+	.project-item .text p {
+		font-size: 16px;
+	}
+
+	.project-item img {
+    width: 100%;
+		border-radius: 10px;
+	}
+
+	.project-item {
+		border-bottom: solid 2px;
+		padding-bottom: 10px;
+	}
+
+	.map-image {
+		max-width: 500px !important;
+	}
+
+	.carousel {
+		position: relative;
+		padding: 0 80px;
+	}
+
+	.carousel-image img {
+		display: block;
+		width: 100%;
+	}
+
+	.carousel-control {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 20%;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		z-index: 2;
+
+		display: flex;
+		align-items: center;
+		font-size: 3rem;
+		color: white;
+	}
+
+	.carousel-control.prev {
+		left: 0;
+		justify-content: flex-start;
+		padding-left: 6rem;
+	}
+
+	.carousel-control.next {
+		right: 0;
+		justify-content: flex-end;
+		padding-right: 6rem;
+	}
+
+	.image-caption {
+		text-align: center;
+    margin-top: 5px;
+		font-size: 16px;
+	}
+
+  .cta-button {
+		display: block;
+		margin: 40px auto;
+		background: #8fa78a;
+		border: solid 2px transparent;
+		padding: 10px 15px;
+		color: #231f20;
+		text-decoration: none;
+		display: block;
+		margin: 20px auto;
+		width: fit-content;
+		border-radius: 5px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		transition: background 0.3s ease-in-out, border 0.3s ease-in-out, color 0.3s ease-in-out;
+	}
+
+	.cta-button:hover {
+		background: #455143;
+		border: solid 2px #f3efe6;
+		color: #f3efe6;
+	}
+
+  #contact-text {
+    text-align: center;
+  }
+
+  .contact-section {
+		border-top: solid 5px #f3efe6;
+		min-height: 60vh;
+		background-color: #7c6e50;
+		padding-top: 40px;
+	}
+
+	.contact-section h2 {
+		text-align: center;
+		color: #f3efe6;
+		font-size: 42px;
+		padding-bottom: 20px;
+		border-bottom: 4px solid #c26a45;
+		width: fit-content;
+		margin: 20px auto;
+	}
+
+	.contact-section img {
+		max-width: 300px;
+		margin: auto;
+		display: block;
+	}
+
+  .contact-content {
+		justify-content: center;
+		display: flex;
+		flex-wrap: wrap;
+		margin: auto;
+		gap: 20px;
+	}
+
+	.contact-content div a {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		color: #f3efe6;
+		text-decoration: none;
+		margin-bottom: 10px;
+		padding: 5px 10px;
+		transition: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+	}
+
+	.contact-content div a:hover {
+		transform: scale(1.1);
+	}
+
+  .contact-content a::after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: #c26a45;
+		transition: width 0.3s ease;
+	}
+
+	.contact-content a:hover::after {
+		width: 100%;
+	}
+
+	.footer-section {
+		background-color: #231f20;
+		color: #f3efe6;
+		padding: 20px;
+		text-align: center;
+	}
+
+	.footer-section h3 {
+		margin-bottom: 5px;
+		font-size: 16px;
+	}
+
+  .footer-section p {
+		font-size: 12px;
+	}
+
+	.footer-section a {
+		color: #f3efe6;
+	}
+
+	.main-nav {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		background: rgba(27, 38, 44, 0.8);
+		backdrop-filter: blur(10px);
+		z-index: 1000;
+		transition: all 0.3s ease;
+	}
+
+	.nav-container {
+		max-width: 1400px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 2rem;
+	}
+
+  .nav-links {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		gap: 1rem;
+	}
+
+	.nav-links a {
+		color: #f3efe6;
+		text-decoration: none;
+		font-family: "Poppins", sans-serif;
+    font-weight: 400;
+		transition: all 0.3s ease;
+		position: relative;
+	}
+
+	.nav-links a:hover,
+	.nav-links a.active {
+		color: #8fa78a;
+	}
+
+  .nav-links a::after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		width: 0;
+		height: 3px;
+		background: #c26a45;
+		transition: width 0.3s ease;
+	}
+
+	.nav-links a:hover::after,
+	.nav-links a.active::after {
+		width: 100%;
+	}
+
+	.logo-nav img {
+		width: 80px;
+		height: 80px;
+	}
+
+	.nav-links a.logo-nav::after {
+		bottom: -1px;
+	}
+
+  .nav-toggle {
+		display: none;
+		background: none;
+		border: none;
+		color: #f3efe6;
+		cursor: pointer;
+	}
+
+	section[id] {
+  	scroll-margin-top: 146px;
+	}
+
+  	/* --- Scroll reveal animation --- */
+	.reveal {
+		opacity: 0;
+		transform: translateY(20px);
+		transition:
+			opacity 600ms ease-out,
+			transform 600ms cubic-bezier(0.25, 0.1, 0.25, 1);
+	}
+
+	.reveal.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Accessibility: respect reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.reveal {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+	}
+
+	@media (max-width: 768px) {
+
+		.section {
+			padding: 30px 10px;
+		}
+
+		.body-section {
+			padding: 10px 20px;
+		}
+
+		.about-title {
+			padding: 20px 10px;
+			width: 100%;
+		}
+
+		.flex-section-center {
+			flex-wrap: wrap;
+		}
+
+		.hero-section, section#projects {
+			min-height: 100vh;
+			padding-top: 120px;
+		}
+
+    section#projects {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+		.image-caption {
+			margin-top: 5px;
+			font-size: 12px;
+		}
+
+		.project-item h3 {
+			font-size: 18px;
+		}
+
+		.project-item .text p {
+			font-size: 14px;
+		}
+
+		.carousel {
+			padding: 0 10px;
+		}
+
+		.carousel-control.prev {
+			padding-left: 1rem;
+		}
+
+		.carousel-control.next {
+			padding-right: 1rem;
+		}
+
+		.hero-section p {
+			font-size: 16px;
+		}
+
+		.about-text {
+			font-size: 16px;
+		}
+
+		.about-image {
+			max-width: unset;
+		}
+
+		.parallax-section {
+			background-attachment: scroll; /* fallback */
+			background-position: center;
+			background-size: cover;
+			min-height: 100vh;
+			padding: 50px 20px;
+		}
+
+		.parallax-section::before {
+			background: linear-gradient(rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.7));
+		}
+
+		.parallax-content {
+			font-size: 20px;
+		}
+
+		.parallax-content ul.desc-list.services li {
+			font-size: 20px;
+		}
+
+		.contact-content {
+			justify-content: center;
+			gap: 0;
+			margin-top: 20px;
+		}
+
+		.nav-toggle {
+			display: block;
+			z-index: 1100;
+		}
+
+		.nav-links {
+			position: absolute;
+			top: 100%;
+			right: 0;
+			background: rgba(27, 38, 44, 0.95);
+			backdrop-filter: blur(10px);
+			flex-direction: column;
+			width: 100%;
+			padding: 1rem 0;
+			display: none;
+		}
+
+		.nav-links.open {
+			display: flex;
+		}
+
+		.nav-links li {
+			text-align: center;
+			padding: 0.75rem 0;
+		}
+
+		.nav-toggle .icon-close {
+			display: none;
+		}
+
+		.nav-toggle.open .icon-menu {
+			display: none;
+		}
+
+		.nav-toggle.open .icon-close {
+			display: block;
+		}
+
+		.nav-container {
+			padding: 0 1.1rem;
+		}
+
+		.nav-links a {
+			font-size: 16px;
+		}
+
+		.nav-links a:hover {
+			color:rgb(249, 244, 218);
+		}
+
+		.nav-links a:hover::after {
+			background: transparent;
+		}
+
+		.nav-links a.active {
+			color: #8fa78a;
+			background: transparent;
+		}
+
+		.nav-links a.active::after {
+			background: #c26a45;
+		}
+
+		.logo-nav img {
+			width: 100px;
+			height: 100px;
+		}
+
+		section[id] {
+			scroll-margin-top: 106px;
+		}
+	}
+
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

@@ -1,0 +1,105 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {PhoneOutgoingIcon, EnvelopeIcon, ListIcon, XIcon, FacebookLogoIcon} from '@phosphor-icons/react';
+import ImageCarousel from '../components/ImageCarousel'
+
+// Import all sections
+
+const projectsContent = await import('../content/sections/projects.md');
+const projects = projectsContent.frontmatter;
+
+const footerContent = await import('../content/sections/footer.md');
+const contactContent = await import('../content/sections/contact.md');
+const navContent = await import('../content/navigation/main.md');
+
+const footer = footerContent.frontmatter;
+const contact = contactContent.frontmatter;
+const navigation = navContent.frontmatter;
+const icons = {
+  facebook: FacebookLogoIcon,
+};
+---
+
+<Layout >
+  <!-- Navigation -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="/#hero" class="logo-nav">
+          <img src={navigation.logo} />
+        </a>
+
+        <!-- Hamburger button -->
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span class="icon icon-menu"><ListIcon  size={32} /></span>
+          <span class="icon icon-close"><XIcon size={32} /></span>
+        </button>
+
+        <ul class="nav-links">
+					{navigation.nav_items.map((item) => {
+						const Icon = icons[item.icon];
+
+						return (
+							<li>
+								<a
+									href={item.href}
+									aria-label={item.label || item.icon}
+									target={Icon ? "_blank" : undefined}
+          				rel={Icon ? "noopener noreferrer" : undefined}
+								>
+									{Icon && <Icon size={24} style={{ marginRight: item.label ? "6px" : 0 }} />}
+									{item.label && <span>{item.label}</span>}
+								</a>
+							</li>
+						);
+					})}
+				</ul>
+      </div>
+    </nav>
+	<!-- Projects Section -->
+	<section class="body-section reveal contrain" id="projects">
+		<h1>{projects.title}</h1>
+    {projects.project_items.map(item => (
+			<div class="project-item">
+				<div class="text">
+					<h3>{item.title}</h3>
+					<p>{item.content}</p>
+				</div>
+        <ImageCarousel
+          client:load
+          images={item.project_images}
+        />
+
+
+			</div>
+		))}
+	</section>
+</Layout>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section reveal contrain">
+      <img src={contact.logo} />
+      <p id="contact-text">{contact.textSection}</p>
+      <div class="contact-content">
+        <div>
+          <a href={`tel:${contact.phone}`}>
+            <PhoneOutgoingIcon size={32} />
+            {contact.phoneString}
+          </a>
+        </div>
+        <div>
+          <a href={`mailto:${contact.email}`}>
+            <EnvelopeIcon size={32} />
+            {contact.email}
+          </a>
+        </div>
+        <div>
+          <a href={contact.facebookLink}>
+            <FacebookLogoIcon size={32} />
+          </a>
+        </div>
+      </div>
+    </section>
+  <!-- Footer Section -->
+    <section id="footer" class="footer-section">
+      <p>{footer.copyright}</p>
+      <p>{footer.owner} <a href={footer.ownerLink} target="_blank">{footer.ownerSite}</a></p>
+    </section>
