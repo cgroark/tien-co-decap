@@ -30,8 +30,14 @@ collections:
         file: "src/content/sections/about.md"
         fields:
           - { label: "Section Title", name: "title", widget: "string" }
-          - { label: "Content", name: "body", widget: "markdown" }
           - { label: "Image", name: "image", widget: "image", required: false }
+          - label: "Overview"
+            name: "overview"
+            widget: "list"
+            fields:
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Italic", name: "italic", widget: "boolean", required: false, default: false }
+              - { label: "Emphasis", name: "emphasis", widget: "boolean", required: false, default: false }
 
       - label: "Services Section"
         name: "services"
@@ -39,7 +45,10 @@ collections:
         fields:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Image", name: "image", widget: "image", required: false }
-          - { label: "Overview", name: "overview", widget: "string" }
+          - label: "Overview"
+            name: "overview"
+            widget: "list"
+            field: { label: "Paragraph", name: "paragraph", widget: "text" }
           - label: "Service Area"
             name: "service_area"
             widget: "list"
@@ -54,26 +63,6 @@ collections:
                   - HandshakeIcon
                   - HeadCircuitIcon
                   - SparkleIcon
-          - { label: "Contact Line", name: "contact_line", widget: "string" }
-
-      - label: "Projects Section"
-        name: "projects"
-        file: "src/content/sections/projects.md"
-        fields:
-        - { label: "Title", name: "title", widget: "string" }
-        - label: "Project Items"
-          name: "project_items"
-          widget: "list"
-          fields:
-            - {label: "Title", name: "title", widget: "string"}
-            - {label: "Content", name: "content", widget: "string", required: false}
-            - label: "Project Images"
-              name: "project_images"
-              widget: "list"
-              fields:
-                - {label: "Full Image", name: "full_image", widget: "image" }
-                - {label: "Thumbnail Image", name: "thumbnail_image", widget: "image", required: false }
-                - {label: "Caption", name: "caption", widget: "string", required: false}
 
       - label: "Contact Section"
         name: "contact"
@@ -81,8 +70,6 @@ collections:
         fields:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Text Section", name: "textSection", widget: "string" }
-          - { label: "Phone Number Text", name: "phoneString", widget: "string" }
-          - { label: "Phone Number", name: "phone", widget: "string" }
           - { label: "Email Text", name: "emailString", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
           - { label: "FacebookLink", name: "facebookLink", widget: "string" }

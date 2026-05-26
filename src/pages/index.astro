@@ -7,7 +7,6 @@ import {
 		BowlSteamIcon,
 		HandshakeIcon,
 		HeadCircuitIcon,
-		PhoneOutgoingIcon,
 		SparkleIcon,
 } from '@phosphor-icons/react';
 
@@ -20,13 +19,6 @@ const hero = heroContent.frontmatter;
 const about = aboutContent.frontmatter;
 const services = servicesContent.frontmatter;
 
-const footerContent = await import('../content/sections/footer.md');
-const contactContent = await import('../content/sections/contact.md');
-const navContent = await import('../content/navigation/main.md');
-
-const footer = footerContent.frontmatter;
-const contact = contactContent.frontmatter;
-const navigation = navContent.frontmatter;
 const serviceIcons = {
 	AirplaneTiltIcon,
 	BookOpenTextIcon,
@@ -44,12 +36,16 @@ const serviceIcons = {
 			<div class="body-section-title">
 				<h2>{about.title}</h2>
 			</div>
-			<div class="flex-section-center border">
-				<img class="body-section-image" src={about.image} />
-				<div class="body-section-text border">
-						<aboutContent.Content />
+				<div class="flex-section-center border">
+					<img class="body-section-image" src={about.image} />
+					<div class="body-section-text border">
+						{about.overview.map(paragraph => (
+							<p class:list={[paragraph.emphasis && 'emphasis']}>
+								{paragraph.italic ? <em>{paragraph.text}</em> : paragraph.text}
+							</p>
+						))}
+					</div>
 				</div>
-			</div>
 		</section>
 		</section>
 
@@ -64,13 +60,15 @@ const serviceIcons = {
 		<section class="body-section services">
 			<div class="body-section-title">
 				<h2>{services.title}</h2>
-			</div>
-			<div class="flex-section-center">
-				<div class="body-section-text border">
-					<p>{services.overview}</p>
-					<p>{services.contact_line}</p>
 				</div>
-			</div>
+				<div class="flex-section-center">
+					<div class="body-section-text border">
+						{services.overview.map(paragraph => (
+							<p>{paragraph}</p>
+						))}
+						{services.contact_line && <p>{services.contact_line}</p>}
+					</div>
+				</div>
 				<div class="desc-list-section">
 					<ul class="desc-list">
 						{services.service_area.map(item => {
