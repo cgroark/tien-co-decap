@@ -307,7 +307,7 @@ const icons = {
 
 	.flex-section-center {
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		gap: 25px;
 		align-items: center;
 	}
@@ -366,7 +366,7 @@ const icons = {
 	}
 
 	.desc-list-section {
-		margin: 20px auto;
+		margin: 20px 0 0 0;
 		width: fit-content;
 	}
 
@@ -437,19 +437,23 @@ const icons = {
 		margin-bottom: 50px;
 	}
 
-		.body-section-text p {
-			color: #2f2f2b;
-		}
+	.body-section-text.border.fifty {
+		width: 50%;
+	}
 
-		.body-section-text p.emphasis {
-			font-size: 1.12em;
-			text-decoration-line: underline;
-			text-decoration-color: #ff4845;
-			text-decoration-thickness: 2px;
-			text-underline-offset: 5px;
-		}
+	.body-section-text p {
+		color: #2f2f2b;
+	}
 
-		.body-section-title {
+	.body-section-text p.emphasis {
+		font-size: 1.12em;
+		text-decoration-line: underline;
+		text-decoration-color: #ff4845;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 5px;
+	}
+
+	.body-section-title {
 		width: 50%;
 	}
 
@@ -476,29 +480,9 @@ const icons = {
     margin: 0 auto;
 	}
 
-	  .project-item {
-			margin-bottom: 20px;
-			border-bottom: solid 2px;
-			padding-bottom: 10px;
-		}
-
-	.project-item .text {
-		text-align: center;
-		margin-bottom: 10px;
+	.carousel {
+		position: relative;
 	}
-
-	.project-item .text p {
-		font-size: 16px;
-	}
-
-	.project-item img {
-    width: 100%;
-		border-radius: 10px;
-	}
-
-		.carousel {
-			position: relative;
-		}
 
 	.carousel-image img {
 		display: block;
@@ -547,7 +531,7 @@ const icons = {
 	.contact-section {
 		min-height: 100vh;
 		background-color: #f6f7f3;
-		padding-top: 40px;
+		padding: 70px 50px;
 		color: #2f2f2b;
 }
 
@@ -618,6 +602,7 @@ const icons = {
 		backdrop-filter: blur(10px);
 		z-index: 1000;
 		transition: all 0.3s ease;
+		border-bottom: 2px solid #231f20;
 	}
 
 	.nav-container {
@@ -627,7 +612,6 @@ const icons = {
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 2rem;
-		border-bottom: 2px solid #231f20;
 	}
 
   .nav-links {
@@ -714,20 +698,33 @@ const icons = {
 		}
 
 		.body-section {
-			padding: 10px 20px;
+			padding: 40px 20px;
 		}
 
 		.body-section-title {
-			padding: 20px 10px;
+			padding: 20px 0;
+			width: 100%;
+			text-align: center;
+		}
+
+		.body-section-text.border.fifty, .body-section-text.border.eighty, .body-section-title.center {
 			width: 100%;
 		}
 
 		.flex-section-center {
 			flex-wrap: wrap;
+			gap: 25px;
+		}
+
+		.flex-section-center.nowrap {
+			flex-wrap: nowrap;
+		}
+
+		.flex-section-center.reverse {
+			flex-wrap: wrap-reverse;
 		}
 
 		.hero-section {
-			min-height: 100vh;
 			padding-top: 120px;
 		}
 
@@ -735,6 +732,7 @@ const icons = {
 			left: 10px;
 			width: calc(100% - 20px);
 			padding: 20px;
+			background: rgba(0, 0, 0, 0.4);
 		}
 
 		.carousel {
@@ -745,8 +743,9 @@ const icons = {
 			font-size: 16px;
 		}
 
-		.body-section-image {
-			max-width: unset;
+		.flex-section-center.border .body-section-image {
+			max-width: 100px;
+			align-self: start;
 		}
 
 		.contact-content {

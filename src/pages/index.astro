@@ -36,7 +36,7 @@ const serviceIcons = {
 			<div class="body-section-title">
 				<h2>{about.title}</h2>
 			</div>
-				<div class="flex-section-center border">
+				<div class="flex-section-center border nowrap"">
 					<img class="body-section-image" src={about.image} />
 					<div class="body-section-text border">
 						{about.overview.map(paragraph => (
@@ -61,26 +61,26 @@ const serviceIcons = {
 			<div class="body-section-title">
 				<h2>{services.title}</h2>
 				</div>
-				<div class="flex-section-center">
-					<div class="body-section-text border">
+				<div class="flex-section-center reverse">
+					<div class="desc-list-section">
+						<ul class="desc-list">
+							{services.service_area.map(item => {
+								const Icon = serviceIcons[item.icon];
+								return (
+									<li class="service-area-item">
+										{Icon && <Icon size={72} />}
+										<span>{item.text}</span>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
+					<div class="body-section-text border fifty">
 						{services.overview.map(paragraph => (
 							<p>{paragraph}</p>
 						))}
 						{services.contact_line && <p>{services.contact_line}</p>}
 					</div>
-				</div>
-				<div class="desc-list-section">
-					<ul class="desc-list">
-						{services.service_area.map(item => {
-							const Icon = serviceIcons[item.icon];
-							return (
-								<li class="service-area-item">
-									{Icon && <Icon size={72} />}
-									<span>{item.text}</span>
-								</li>
-							);
-						})}
-					</ul>
 				</div>
 			</section>
 		</section>
