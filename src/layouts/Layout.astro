@@ -75,21 +75,21 @@ const icons = {
       </div>
     </nav>
 
-			<!-- Hero Section -->
-			<section id="hero" class="hero-section section reveal constrain">
-				<div class="hero-carousel-wrap">
-					<ImageCarousel
-							client:load
-							images={hero.images}
-							autoPlay={true}
-							interval={5000}
-						/>
-				<div class="hero-overlay">
-						<h1>{hero.title}</h1>
-						<h2>{hero.description}</h2>
-					</div>
+		<!-- Hero Section -->
+		<section id="hero" class="hero-section section reveal constrain">
+			<div class="hero-carousel-wrap">
+				<ImageCarousel
+						client:load
+						images={hero.images}
+						autoPlay={true}
+						interval={5000}
+					/>
+			<div class="hero-overlay">
+					<h1>{hero.title}</h1>
+					<h2>{hero.description}</h2>
 				</div>
-			</section>
+			</div>
+		</section>
 
     <!-- Page Content Rendered -->
     <slot />
@@ -117,7 +117,6 @@ const icons = {
 			</div>
 
 			<img src={contact.logo} />
-
     </section>
 
   	<!-- Footer Section -->
@@ -306,7 +305,6 @@ const icons = {
 		color: #f3efe6;
 	}
 
-
 	.flex-section-center {
 		display: flex;
 		justify-content: center;
@@ -367,10 +365,10 @@ const icons = {
 		margin: 0;
 	}
 
-		.desc-list-section {
-			margin: 20px auto;
-			width: fit-content;
-		}
+	.desc-list-section {
+		margin: 20px auto;
+		width: fit-content;
+	}
 
 	ul.desc-list {
 		list-style: none;
@@ -643,8 +641,7 @@ const icons = {
 	.nav-links a {
 		color: #231f20;
 		text-decoration: none;
-		font-family: "Poppins", sans-serif;
-    font-weight: 400;
+    font-family: "Roboto Slab", serif;
 		transition: all 0.3s ease;
 		position: relative;
 	}
@@ -660,8 +657,8 @@ const icons = {
 		bottom: -5px;
 		left: 0;
 		width: 0;
-		height: 3px;
-		background: #8645ff;
+		height: 1px;
+		background: #231f20;
 		transition: width 0.3s ease;
 	}
 
@@ -675,11 +672,11 @@ const icons = {
 		height: 80px;
 	}
 
-	  .nav-toggle {
-			display: none;
-			background: none;
+	.nav-toggle {
+		display: none;
+		background: none;
 		border: none;
-		color: #f3efe6;
+		color: #231f20;
 		cursor: pointer;
 	}
 
@@ -729,7 +726,7 @@ const icons = {
 			flex-wrap: wrap;
 		}
 
-		.hero-section, section#projects {
+		.hero-section {
 			min-height: 100vh;
 			padding-top: 120px;
 		}
@@ -740,47 +737,21 @@ const icons = {
 			padding: 20px;
 		}
 
-		section#projects {
-			padding-left: 20px;
-			padding-right: 20px;
-		}
-
-		.image-caption {
-			margin-top: 5px;
-			font-size: 12px;
-		}
-
-		.project-item h3 {
-			font-size: 18px;
-		}
-
-		.project-item .text p {
-			font-size: 14px;
-		}
-
 		.carousel {
 			padding: 0 10px;
 		}
 
-		.carousel-control.prev {
-			padding-left: 1rem;
+		.body-section-text {
+			font-size: 16px;
 		}
-
-		.carousel-control.next {
-			padding-right: 1rem;
-		}
-
-			.body-section-text {
-				font-size: 16px;
-			}
 
 		.body-section-image {
 			max-width: unset;
 		}
 
-			.contact-content {
-				justify-content: center;
-				gap: 0;
+		.contact-content {
+			justify-content: center;
+			gap: 0;
 			margin-top: 20px;
 		}
 
@@ -810,7 +781,24 @@ const icons = {
 			padding: 0.75rem 0;
 		}
 
-		.nav-toggle .icon-close {
+		.nav-links a {
+			font-size: 16px;
+			color: #f3efe6
+		}
+
+		.nav-links a:hover {
+			color: #ff4845;
+		}
+
+		.nav-links a:hover::after {
+			background: transparent;
+		}
+
+		.nav-links a.active::after {
+			background: #ff4845;
+		}
+
+		.nav-toggle .icon-close {;
 			display: none;
 		}
 
@@ -824,27 +812,6 @@ const icons = {
 
 		.nav-container {
 			padding: 0 1.1rem;
-		}
-
-		.nav-links a {
-			font-size: 16px;
-		}
-
-		.nav-links a:hover {
-			color:rgb(249, 244, 218);
-		}
-
-		.nav-links a:hover::after {
-			background: transparent;
-		}
-
-		.nav-links a.active {
-			color: #8fa78a;
-			background: transparent;
-		}
-
-		.nav-links a.active::after {
-			background: #ff4845;
 		}
 
 		.logo-nav img {
