@@ -480,6 +480,10 @@ const icons = {
     margin: 0 auto;
 	}
 
+	.body-section-image.mobile {
+		display: none;
+	}
+
 	.carousel {
 		position: relative;
 	}
@@ -743,9 +747,28 @@ const icons = {
 			font-size: 16px;
 		}
 
-		.flex-section-center.border .body-section-image {
+		.flex-section-center.border .body-section-image.full {
+			display: none;
+		}
+
+		.flex-section-center.border .body-section-image.mobile {
+			display: block;
+			border-radius: 50%;
 			max-width: 100px;
 			align-self: start;
+			border: solid #231f20 2px;
+			margin-right: -40px;
+			z-index: 3;
+		}
+
+		ul.desc-list li span {
+			text-align: right;
+			border: none;
+			font-size: 20px;
+		}
+
+		ul.desc-list li {
+			justify-content: space-between;
 		}
 
 		.contact-content {
@@ -814,8 +837,8 @@ const icons = {
 		}
 
 		.logo-nav img {
-			width: 100px;
-			height: 100px;
+			width: 70px;
+			height: 70px;
 		}
 
 		section[id] {

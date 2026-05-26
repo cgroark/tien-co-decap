@@ -1,6 +1,7 @@
 ---
 title: About Me
 image: /images/truong-headshot.jpg
+mobile_image: /images/truong-headshot-square.jpg
 overview:
   - text: Interested in finally visiting Vietnam after hearing about the amazing experiences others have had there?
     italic: true

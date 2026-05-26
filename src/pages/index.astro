@@ -37,7 +37,8 @@ const serviceIcons = {
 				<h2>{about.title}</h2>
 			</div>
 				<div class="flex-section-center border nowrap"">
-					<img class="body-section-image" src={about.image} />
+					<img class="body-section-image full" src={about.image} />
+					<img class="body-section-image mobile" src={about.mobile_image} />
 					<div class="body-section-text border">
 						{about.overview.map(paragraph => (
 							<p class:list={[paragraph.emphasis && 'emphasis']}>

@@ -31,6 +31,7 @@ collections:
         fields:
           - { label: "Section Title", name: "title", widget: "string" }
           - { label: "Image", name: "image", widget: "image", required: false }
+          - { label: "Mobile Image", name: "mobile_image", widget: "image", required: false }
           - label: "Overview"
             name: "overview"
             widget: "list"
