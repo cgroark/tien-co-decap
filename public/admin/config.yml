@@ -49,7 +49,10 @@ collections:
           - label: "Overview"
             name: "overview"
             widget: "list"
-            field: { label: "Paragraph", name: "paragraph", widget: "text" }
+            fields:
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Italic", name: "italic", widget: "boolean", required: false, default: false }
+              - { label: "Emphasis", name: "emphasis", widget: "boolean", required: false, default: false }
           - label: "Service Area"
             name: "service_area"
             widget: "list"
@@ -73,7 +76,9 @@ collections:
           - { label: "Text Section", name: "textSection", widget: "string" }
           - { label: "Email Text", name: "emailString", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
-          - { label: "FacebookLink", name: "facebookLink", widget: "string" }
+          - { label: "Instagram Link", name: "instagramLink", widget: "string" }
+          - { label: "LinkedIn Link", name: "linkedInLink", widget: "string" }
+
           - { label: "Image", name: "logo", widget: "image", required: false }
 
       - label: "Footer Section"

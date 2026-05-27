@@ -78,9 +78,10 @@ const serviceIcons = {
 					</div>
 					<div class="body-section-text border fifty">
 						{services.overview.map(paragraph => (
-							<p>{paragraph}</p>
+							<p class:list={[paragraph.emphasis && 'emphasis']}>
+								{paragraph.italic ? <em>{paragraph.text}</em> : paragraph.text}
+							</p>
 						))}
-						{services.contact_line && <p>{services.contact_line}</p>}
 					</div>
 				</div>
 			</section>

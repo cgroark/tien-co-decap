@@ -2,8 +2,14 @@
 title: Services
 image: /images/truong-tien-logo.png
 overview:
-  - After 20+ years travelling Vietnam and Southeast Asia (and an entire life being Vietnamese American), Joseph and his network through Tien and Co is ready to help you experience and discover Vietnam.
-  - Contact us to discuss what additional services we can provide or curate for you.
+  - text: Interested in finally visiting Vietnam after hearing about the amazing experiences others have had there?
+    italic: true
+  - text: Want to consider nascent business or market opportunities in the region?
+    italic: true
+  - text: Curious to explore more about the fascinating Vietnamese culture?
+    italic: true
+  - text: Now is a phenomenal time to engage with Vietnam.
+    emphasis: true
 service_area:
   - text: Curated journeys to and about Vietnam
     icon: AirplaneTiltIcon

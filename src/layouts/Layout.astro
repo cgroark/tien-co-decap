@@ -1,5 +1,5 @@
 ---
-import {EnvelopeIcon, ListIcon, XIcon, InstagramLogoIcon} from '@phosphor-icons/react';
+import {EnvelopeIcon, ListIcon, XIcon, InstagramLogoIcon, LinkedinLogoIcon} from '@phosphor-icons/react';
 import ImageCarousel from '../components/ImageCarousel'
 
 export interface Props {
@@ -109,8 +109,13 @@ const icons = {
 						</a>
 					</div>
 					<div>
-						<a href={contact.instagramLink}>
+						<a href={contact.instagramLink} target="_blank">
 							<InstagramLogoIcon size={32} />
+						</a>
+					</div>
+					<div>
+						<a href={contact.linkedInLink}>
+							<LinkedinLogoIcon size={32} target="_blank" />
 						</a>
 					</div>
 				</div>
@@ -317,7 +322,7 @@ const icons = {
 	}
 
 	.flex-section-center.border .body-section-image {
-		align-self: center;
+		align-self: start;
 	}
 
 	h2 {
@@ -755,7 +760,6 @@ const icons = {
 			display: block;
 			border-radius: 50%;
 			max-width: 100px;
-			align-self: start;
 			border: solid #231f20 2px;
 			margin-right: -40px;
 			z-index: 3;
