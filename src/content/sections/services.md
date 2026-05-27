@@ -1,8 +1,9 @@
 ---
 title: Services
-image: /images/truong-tien-logo.png
+image: ""
 overview:
-  - text: Interested in finally visiting Vietnam after hearing about the amazing experiences others have had there?
+  - text: Interested in finally visiting Vietnam after hearing about the amazing
+      experiences others have had there?
     italic: true
   - text: Want to consider nascent business or market opportunities in the region?
     italic: true
