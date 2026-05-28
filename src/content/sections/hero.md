@@ -1,5 +1,5 @@
 ---
-title: Tien and Co
+title: Tien and Co.
 description: Your guide to Vietnam awaits
 images:
   - full_image: /images/doorway.jpg
