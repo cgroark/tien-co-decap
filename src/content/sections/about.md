@@ -3,11 +3,14 @@ title: About Me
 image: /images/truong-headshot.jpg
 mobile_image: /images/truong-headshot-square.jpg
 overview:
-  - text: After 20+ years travelling Vietnam and Southeast Asia (and an entire life
-      being Vietnamese American), Joseph Tien T. Truong and his network through
-      Tien and Co is ready to help you experience and discover Vietnam.
+  - text: >+
+      After 20+ years travelling through Vietnam and Southeast Asia (and an
+      entire life being Vietnamese American), Joseph Tien T. Truong and his
+      network through Tien and Co is ready to help you experience and discover
+      Vietnam.
+
   - text: placeholder BIO
-  - text: Contact us to discuss what additional services we can provide or curate
-      for you.
+  - text: Contact us to discuss the suite of additional services we can provide and
+      curate for you.
     emphasis: true
 ---
