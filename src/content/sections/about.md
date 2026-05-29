@@ -8,11 +8,13 @@ overview:
       advisory services regarding Vietnam.
 
 
-      More than just knowledge or experience, we offer clients unique, grounded insights, analysis and connections with Vietnam to help them visit, engage with, and experience Vietnam more deeply and richly from a global perspective.
-
     italic: false
-  - text: placeholder BIO
+    emphasis: true
+  - text: >-
+      
+      More than just knowledge or experience, we offer clients unique, grounded insights, analysis and connections with Vietnam to help them visit, engage with, and experience Vietnam more deeply and richly from a global perspective.
   - text: Contact us to discuss the suite of additional services we can provide and
       curate for you.
-    emphasis: true
+    emphasis: false
+    italic: true
 ---
