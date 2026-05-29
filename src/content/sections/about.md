@@ -1,5 +1,5 @@
 ---
-title: About Me
+title: Welcome to Tien and Co.
 image: /images/truong-headshot.jpg
 mobile_image: /images/truong-headshot-square.jpg
 overview:
