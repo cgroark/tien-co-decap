@@ -9,7 +9,7 @@ overview:
 
 
     italic: false
-    emphasis: true
+    emphasis: false
   - text: >-
       
       More than just knowledge or experience, we offer clients unique, grounded insights, analysis and connections with Vietnam to help them visit, engage with, and experience Vietnam more deeply and richly from a global perspective.
