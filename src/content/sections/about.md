@@ -25,6 +25,7 @@ overview:
       Clients benefit immensely from founder Joseph Tien Tan Truong’s life as a Vietnamese American from an immigrant family, as an outreach and communications leader for 30 years across multiple industries, and his 20 years with the U.S. Government working and traveling across Asia.
 
 
+    italic: false
   - text: placeholder BIO
   - text: Contact us to discuss the suite of additional services we can provide and
       curate for you.
