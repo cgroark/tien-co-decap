@@ -7,7 +7,7 @@ overview:
 
 
 
-    italic: true
+    italic: false
   - text: >+
       To better understand how and why Vietnam’s growth should be part of your
       professional venture’s strategic planning. 
@@ -20,7 +20,8 @@ overview:
     italic: true
   - text: |
       To connect with others who share your excitement and wonder about Vietnam 
-    emphasis: true
+    emphasis: false
+    italic: true
 service_area:
   - text: Curated journeys to and about Vietnam
     icon: AirplaneTiltIcon
