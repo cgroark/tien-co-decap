@@ -7,5 +7,4 @@ images:
   - full_image: /images/flowers.jpg
   - full_image: /images/beach-ocean.jpg
   - full_image: /images/boats.jpg
-  - full_image: /images/store.jpg
 ---
