@@ -16,5 +16,5 @@ overview:
   - text: Contact us to discuss the suite of additional services we can provide and
       curate for you.
     emphasis: false
-    italic: true
+    italic: false
 ---
