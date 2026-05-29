@@ -2,14 +2,24 @@
 title: Services
 image: ""
 overview:
-  - text: Interested in finally visiting Vietnam after hearing about the amazing
-      experiences others have had there?
+  - text: |+
+      Contact us for a complimentary consultation if you want:
+
+
+
     italic: true
-  - text: Want to consider nascent business or market opportunities in the region?
+  - text: >+
+      To better understand how and why Vietnam’s growth should be part of your
+      professional venture’s strategic planning. 
+
     italic: true
-  - text: Curious to explore more about the fascinating Vietnamese culture?
+  - text: >+
+      To enjoy a smooth journey to Vietnam, personally curated for you based on
+      more than 20 years of travelling to and around Vietnam 
+
     italic: true
-  - text: Now is a phenomenal time to engage with Vietnam.
+  - text: |
+      To connect with others who share your excitement and wonder about Vietnam 
     emphasis: true
 service_area:
   - text: Curated journeys to and about Vietnam
