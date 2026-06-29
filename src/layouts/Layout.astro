@@ -119,15 +119,17 @@ const icons = {
 							{contact.emailString}
 						</a>
 					</div>
-					<div>
-						<a href={contact.instagramLink} target="_blank">
-							<InstagramLogoIcon size={32} />
-						</a>
-					</div>
-					<div>
-						<a href={contact.linkedInLink}>
-							<LinkedinLogoIcon size={32} target="_blank" />
-						</a>
+					<div class="contact-flex">
+						<div>
+							<a href={contact.instagramLink} target="_blank">
+								<InstagramLogoIcon size={32} />
+							</a>
+						</div>
+						<div>
+							<a href={contact.linkedInLink}>
+								<LinkedinLogoIcon size={32} target="_blank" />
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -565,7 +567,12 @@ const icons = {
 		gap: 20px;
 	}
 
-		.contact-content div a {
+	.contact-content .contact-flex {
+		justify-content: center;
+		display: flex;
+	}
+
+	.contact-content div a {
 		display: flex;
 		align-items: center;
 		gap: 5px;
